@@ -40,7 +40,7 @@ HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const serverConfig = {
   mode: process.env.NODE_ENV || 'development',
-  entry: './server/server.ts',
+  entry: './server/main.ts',
   module: {
     rules: [
       {
@@ -66,7 +66,7 @@ const serverConfig = {
     extensions: ['.mjs', '.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'server.js',
+    filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
   devtool: 'eval-source-map',
@@ -79,30 +79,7 @@ const serverConfig = {
       filename: '[name].js.map',
     }),
   ],
-  //externals: [nodeExternals()],
-  plugins: [
-    new webpack.IgnorePlugin({
-      checkResource(resource) {
-        const lazyImports = [
-          '@nestjs/microservices',
-          '@nestjs/platform-express',
-          '@nestjs/grahpql',
-          'cache-manager',
-          'class-validator',
-          'class-transformer',
-        ];
-        if (!lazyImports.includes(resource)) {
-          return false;
-        }
-        try {
-          require.resolve(resource);
-        } catch (err) {
-          return true;
-        }
-        return false;
-      },
-    }),
-  ],
+  externals: [nodeExternals()],
 };
 
 module.exports = serverConfig;

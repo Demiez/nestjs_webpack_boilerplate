@@ -16,7 +16,7 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "check:clean": "rimraf dist",
     "check:build": "webpack -w",
-    "check:server": "nodemon dist/main.js",
+    "check:server": "nodemon dist/main.js --delay 1",
     "dev": "npm-run-all --parallel check:*"
   },
   "dependencies": {
